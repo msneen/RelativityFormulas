@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelativityFormulas", "RelativityFormulas.csproj", "{94F0C38B-FE7F-4AA0-897A-CF4701C16704}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94F0C38B-FE7F-4AA0-897A-CF4701C16704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94F0C38B-FE7F-4AA0-897A-CF4701C16704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F0C38B-FE7F-4AA0-897A-CF4701C16704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94F0C38B-FE7F-4AA0-897A-CF4701C16704}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C66E9953-5664-4818-96BE-AC57A2B49ACF}
+	EndGlobalSection
+EndGlobal
