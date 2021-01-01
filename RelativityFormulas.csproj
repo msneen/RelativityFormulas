@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CelestialBody.cs" />
+    <Compile Include="Classes\SpaceTimeFormula.cs" />
+    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Converters\MetricStandardConverter.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,5 +81,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
