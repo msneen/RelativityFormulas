@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CelestialBody.cs" />
+    <Compile Include="Classes\LorentzFormula.cs" />
     <Compile Include="Classes\SpaceTimeFormula.cs" />
+    <Compile Include="Classes\SpaceTimePhotonFormula.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Converters\MetricStandardConverter.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
