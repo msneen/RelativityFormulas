@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RelativityFormulas.Classes
+namespace RelativityFormulas.Formulas
 {
     public class LorentzFormula
     {

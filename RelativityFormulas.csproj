@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CelestialBody.cs" />
-    <Compile Include="Classes\LorentzFormula.cs" />
-    <Compile Include="Classes\SpaceTimeFormula.cs" />
-    <Compile Include="Classes\SpaceTimePhotonFormula.cs" />
+    <Compile Include="Classes\MassBody.cs" />
+    <Compile Include="Formulas\LorentzFormula.cs" />
+    <Compile Include="Formulas\SpaceTimeFormula.cs" />
+    <Compile Include="Formulas\SpaceTimePhotonFormula.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Converters\MetricStandardConverter.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
