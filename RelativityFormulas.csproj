@@ -48,7 +48,8 @@
   <ItemGroup>
     <Compile Include="Classes\MassBody.cs" />
     <Compile Include="Formulas\LorentzFormula.cs" />
-    <Compile Include="Formulas\SpaceTimeFormula.cs" />
+    <Compile Include="Formulas\TimeFormula.cs" />
+    <Compile Include="Formulas\WeightFormula.cs" />
     <Compile Include="Formulas\SpaceTimePhotonFormula.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Converters\MetricStandardConverter.cs" />

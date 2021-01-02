@@ -13,5 +13,10 @@
         public double WeightForce { get; set; }
 
         public double TimeDilation { get; set; }
+
+        public MassBody Copy()
+        {
+            return (MassBody) this.MemberwiseClone();
+        }
     }
 }

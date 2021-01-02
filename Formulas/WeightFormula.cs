@@ -3,24 +3,26 @@ using RelativityFormulas.Classes;
 
 namespace RelativityFormulas.Formulas
 {
-    public static class SpaceTimeFormula
+    public static class WeightFormula
     {
         //If a mass is experiencing Acceleration / Weight Force / Centrifugal Force, etc, it is not centered within the Time Gradient affecting it
         //This is simplified. The acceleration should really be a 3D vector in relationship to the vector between the 2 centers of mass
 
         public static MassBody CalculateWeightForce(this MassBody massBody1, MassBody massBody2 = null, double additionalDistanceBeyondRadii = 0)
         {
+            //Should we overwrite any weightforce already in here?
+            var returnMassBody = massBody1.Copy();
             if (massBody2 != null)
             {
-                massBody1.WeightForce += WeightForceDueToMass(massBody1, massBody2, additionalDistanceBeyondRadii);
+                returnMassBody.WeightForce += WeightForceDueToMass(massBody1, massBody2, additionalDistanceBeyondRadii);
             }
 
             if (massBody1.Acceleration > 0)
             {
-                massBody1.WeightForce += WeightForceDueToAcceleration(massBody1, massBody1.Acceleration, massBody1.Velocity);
+                returnMassBody.WeightForce += WeightForceDueToAcceleration(massBody1, massBody1.Acceleration, massBody1.Velocity);
             }
 
-            return massBody1;
+            return returnMassBody;
         }
 
         /// <summary>
