@@ -9,11 +9,12 @@ namespace RelativityFormulas.Formulas
 
         public static MassBody CalculateTimeDilation(this MassBody massBody1, MassBody massBody2 = null, double additionalDistanceBeyondRadii = 0)
         {
-            var massDilation = massBody2 != null ? massBody1.GetTimeDilationFactorDueToMass(massBody2, additionalDistanceBeyondRadii) : 1;
-            var velocityDilation = GetTimeDilationFactorDueToVelocity(massBody1.Velocity);
+            var massDilation = 1 - ( massBody2 != null ? massBody1.GetTimeDilationFactorDueToMass(massBody2, additionalDistanceBeyondRadii) : 1);
+            var velocityDilation = 1 - GetTimeDilationFactorDueToVelocity(massBody1.Velocity);
 
             var returnMassBody = massBody1.Copy();
-            returnMassBody.TimeDilation = massDilation * velocityDilation;
+
+            returnMassBody.TimeDilation = 1 - massDilation - velocityDilation;
             return returnMassBody;
         }
 
