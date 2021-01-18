@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\MassBody.cs" />
+    <Compile Include="Classes\TimeGradientCalculation.cs" />
     <Compile Include="Formulas\LorentzFormula.cs" />
     <Compile Include="Formulas\TimeFormula.cs" />
     <Compile Include="Formulas\WeightFormula.cs" />

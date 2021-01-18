@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using RelativityFormulas.Classes;
 using RelativityFormulas.Extensions;
 
@@ -7,9 +8,19 @@ namespace RelativityFormulas.Formulas
     public static class TimeFormula
     {
 
+        /// <summary>
+        /// Top level method for deterimining Time Gradient an object is "in".
+        /// Calculates the time gradient due to proximity to a Mass, as well as to the object's own acceleration
+        /// (check this. Could be double calculating based on Acceleration, and then Velocity on the next line)
+        /// </summary>
+        /// <param name="massBody1"></param>
+        /// <param name="massBody2"></param>
+        /// <param name="additionalDistanceBeyondRadii"></param>
+        /// <returns></returns>
         public static MassBody CalculateTimeDilation(this MassBody massBody1, MassBody massBody2 = null, double additionalDistanceBeyondRadii = 0)
         {
             var massDilation = 1 - ( massBody2 != null ? massBody1.GetTimeDilationFactorDueToMass(massBody2, additionalDistanceBeyondRadii) : 1);
+            
             var velocityDilation = 1 - GetTimeDilationFactorDueToVelocity(massBody1.Velocity);
 
             var returnMassBody = massBody1.Copy();
@@ -18,14 +29,35 @@ namespace RelativityFormulas.Formulas
             return returnMassBody;
         }
 
+        /// <summary>
+        /// 
+        /// T' = T * Sqrt( 1 - (2gR/C_squared))
+        /// </summary>
+        /// <param name="massBody1">
+        ///     .Radius - in Meters
+        ///     .Mass - in Kilograms
+        ///     .Acceleration - in Meters / Second squared
+        /// </param>
+        /// <param name="massBody2">
+        ///     .Radius - in Meters
+        ///     .Mass - in Kilograms
+        /// </param>
+        /// <param name="additionalDistanceBeyondRadii">in Meters</param>
+        /// <returns></returns>
         public static double GetTimeDilationFactorDueToMass(this MassBody massBody1, MassBody massBody2, double additionalDistanceBeyondRadii = 0)
         {
             var unDilatedTime = 1;//I know this is unnecessary, but it makes it easier to relate the formula back to relativity formulas
             var velocityMetersPerSecondSquared = massBody1.CalculateWeightForce(massBody2, additionalDistanceBeyondRadii).WeightForce;//This needs to be the velocity at that point in space, or on the surface.
 
-            var radius = massBody1.Radius + massBody2.Radius + additionalDistanceBeyondRadii;
 
-            var dilatedTime = unDilatedTime * Math.Sqrt(1 - ((2 * velocityMetersPerSecondSquared * radius) / Constants.SPEED_OF_LIGHT_SQUARED_ms));
+
+            //This is actually the Lorentz Factor/Gamma, with the "2 * radius" multiplied in.  Why? Why (2 * radius)?
+            //See LorentzFormula.cs line 17-43 ish
+
+            //var radius = massBody1.Radius + massBody2.Radius + additionalDistanceBeyondRadii;
+            //var dilatedTime = unDilatedTime * Math.Sqrt(1 - ((2 * radius * velocityMetersPerSecondSquared) / Constants.SPEED_OF_LIGHT_SQUARED_ms));
+            //Mws: this was wrong above. Should be
+            var dilatedTime = unDilatedTime * Math.Sqrt(1 - ((2 * velocityMetersPerSecondSquared) / Constants.SPEED_OF_LIGHT_SQUARED_ms));
 
             return dilatedTime;
         }
@@ -48,7 +80,7 @@ namespace RelativityFormulas.Formulas
             //This won't return the correct answer at speeds really close to C, but good enough for now
             if (velocity.Equals4DigitPrecision(Constants.SPEED_OF_LIGHT_ms)) return 0;
 
-            return 1 / LorentzFormula.LorentzFactor(velocity);
+            return 1 / LorentzFormula.IncreaseDueToVelocity_LorentzFactor_Gamma(velocity);
         }
 
 

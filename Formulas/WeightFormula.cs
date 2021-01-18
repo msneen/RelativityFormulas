@@ -19,10 +19,38 @@ namespace RelativityFormulas.Formulas
 
             if (massBody1.Acceleration > 0)
             {
-                returnMassBody.WeightForce += WeightForceDueToAcceleration(massBody1, massBody1.Acceleration, massBody1.Velocity);
+                returnMassBody.WeightForce += WeightForceDueToAcceleration(massBody1, massBody1.Acceleration, 0);
             }
 
             return returnMassBody;
+        }
+
+        /// <summary>
+        /// This calculates the Weight Force At Each Radius.
+        /// </summary>
+        /// <param name="timeGradientCalculation"></param>
+        public static void CalculateWeightForceGradient(TimeGradientCalculation timeGradientCalculation)
+        {
+            timeGradientCalculation.TimeGradientRadiusCalculations.Clear();
+
+            for (var radiusBeingCalculated = 0; radiusBeingCalculated < (timeGradientCalculation.NumberOfProximityRadiiToCalculate + 1); radiusBeingCalculated++)
+            {
+                var distanceBetweenSurfaces = (timeGradientCalculation.MassBodyBeingCalculated.Radius + timeGradientCalculation.MassBodyInProximity.Radius) * radiusBeingCalculated;
+
+                var weightForceAtRadius = timeGradientCalculation.MassBodyBeingCalculated.CalculateWeightForce(timeGradientCalculation.MassBodyInProximity, distanceBetweenSurfaces);
+
+                //calculate the Time Dilation at each Radius Level
+                var timeDilationAtRadius = timeGradientCalculation.MassBodyBeingCalculated.GetTimeDilationFactorDueToMass(timeGradientCalculation.MassBodyInProximity, distanceBetweenSurfaces);
+
+                var timeGradientRadiusCalculation = new TimeGradientRadiusCalculation
+                {
+                    RadiusFromCenter = radiusBeingCalculated,
+                    WeightForceAtRadius = weightForceAtRadius.WeightForce,
+                    TimeDilationAtRadius = timeDilationAtRadius
+                };
+
+                timeGradientCalculation.TimeGradientRadiusCalculations.Add(timeGradientRadiusCalculation);
+            }
         }
 
         /// <summary>
@@ -39,7 +67,7 @@ namespace RelativityFormulas.Formulas
             var mass = massBody1.Mass * massBody2.Mass;
             var distanceBetweenCentersSquared = (distanceBetweenCenters * distanceBetweenCenters);
 
-            return (RelativityFormulas.Constants.GRAVITATIONAL_CONSTANT_nm2kg2 * mass) / distanceBetweenCentersSquared;
+            return (Constants.GRAVITATIONAL_CONSTANT_nm2kg2 * mass) / distanceBetweenCentersSquared;
         }
 
         /// <summary>
@@ -52,7 +80,7 @@ namespace RelativityFormulas.Formulas
         /// <returns></returns>
         public static double WeightForceDueToAcceleration(this MassBody massBody, double accelerationMetersPerSecondSquared = 0, double initialVelocity_ms = 0)
         {
-            var lorentzFactor = LorentzFormula.LorentzFactor(initialVelocity_ms);//at low speeds, this is 1, at close to C, this approaches infinity
+            var lorentzFactor = LorentzFormula.IncreaseDueToVelocity_LorentzFactor_Gamma(initialVelocity_ms);//at low speeds, this is 1, at close to C, this approaches infinity
 
             //This insinuates that as you get closer to C, you can't accelerate very fast or you'll get crushed
             return massBody.Mass * lorentzFactor * accelerationMetersPerSecondSquared; 
@@ -66,7 +94,7 @@ namespace RelativityFormulas.Formulas
         /// <returns></returns>
         public static double MomentumForceDueToVelocity(this MassBody massBody, double velocity_ms)
         {
-            var lorentzFactor = LorentzFormula.LorentzFactor(velocity_ms);//at low speeds, this is 1, at close to C, this approaches infinity
+            var lorentzFactor = LorentzFormula.IncreaseDueToVelocity_LorentzFactor_Gamma(velocity_ms);//at low speeds, this is 1, at close to C, this approaches infinity
             return massBody.Mass * lorentzFactor * velocity_ms;
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace RelativityFormulas.Converters
 {
-    public class MetricStandardConverter
+    public static class MetricStandardConverter
     {
         public static double ConvertKgToLb(double weightInKg)
         {
